@@ -18,16 +18,15 @@ function App() {
     // getPosition();
     // navigator.permissions.query({ name: 'geolocation' }).then(function(result) {});
   
-    navigator.permissions.query({ name: 'push', userVisibleOnly:true })
-      .then(() => {})
-      .catch(e => alert(e))
+    // navigator.permissions.query({ name: 'push', userVisibleOnly:true })
+    //   .then(() => {})
+    //   .catch(e => alert(e))
   }, []);
 
 
   const showButtonToEnableLocation = () => {
     
   }
-
 
   const getPosition = () => {
     navigator.geolocation.getCurrentPosition(
