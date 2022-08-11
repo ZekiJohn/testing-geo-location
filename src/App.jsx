@@ -17,7 +17,9 @@ function App() {
     // getPosition();
     // navigator.permissions.query({ name: 'geolocation' }).then(function(result) {});
   
-    navigator.permissions.query({ name: 'push', userVisibleOnly:true }).then(() => {});
+    navigator.permissions.query({ name: 'push', userVisibleOnly:true })
+      .then(() => {})
+      .catch(e => alert(e))
   }, []);
 
 
@@ -29,12 +31,10 @@ function App() {
   const getPosition = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
         location.current.innerText = position.coords.latitude + ', ' + position.coords.longitude + ' -- ' + position.coords.accuracy;
       },
       error => {
-        console.error("Error Code = " + error.code + " - " + error.message);
+        alert("Error : " + error.code + " - " + error.message);
       },
       {enableHighAccuracy: true},
     );
