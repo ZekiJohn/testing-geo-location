@@ -12,9 +12,7 @@ function App() {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
       if (result.state === 'granted') {
         getPosition();
-        
       } else if (result.state === 'prompt') {
-        status_message.current.innerText = 'Prompting User!';
         showEnableLocation();
       }
     });
