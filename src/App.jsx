@@ -36,7 +36,6 @@ function App() {
       error => {
         alert("Error : " + error.code + " - " + error.message);
       },
-      {enableHighAccuracy: true},
     );
   }
 
