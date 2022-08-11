@@ -3,11 +3,11 @@ import './App.css'
 import { useState, useEffect, useRef  } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0);
   const [accuracy, setAccuracy] = useState("");
   const [status_message, setStatusMessage] = useState("");
   const [user_location, setUserLocation] = useState("");
-  
+
+
   const promptUserLocation = () => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
       if (result.state === 'granted') {
@@ -64,16 +64,8 @@ function App() {
         </a>
       </h5>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <button onClick={() => getPosition()}>
           Show Location
-        </button>
-        <button onClick={() => {
-          showEnableLocation();
-        }}>
-          Give Location Access
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
