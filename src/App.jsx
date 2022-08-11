@@ -35,7 +35,8 @@ function App() {
       },
       error => {
         console.error("Error Code = " + error.code + " - " + error.message);
-      }
+      },
+      {enableHighAccuracy: true},
     );
   }
 
