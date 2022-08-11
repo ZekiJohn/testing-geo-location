@@ -12,20 +12,28 @@ function App() {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
       if (result.state === 'granted') {
         getPosition();
-        status_message.current.innerText = 'Access Granted! WELL DONE!';
+        
       } else if (result.state === 'prompt') {
         status_message.current.innerText = 'Prompting User!';
-        showButtonToEnableLocation();
-      } else if (result.state === 'denied') {
-        status_message.current.innerText = 'Please Give Access to Your Location.';
+        showEnableLocation();
       }
     });
   }, []);
 
 
-  const showButtonToEnableLocation = () => {
+  const showEnableLocation = () => {
     navigator.permissions.query({ name: 'push', userVisibleOnly:true })
-      .then(permissionStatus  => {});
+      .then(permissionStatus  => {
+        permissionStatus.onchange = () => {
+          if (permissionStatus.state === 'denied') {
+            status_message.current.innerText = 'Please Give Access to Your Location.';
+          } else if (permissionStatus.state === 'granted') {
+            status_message.current.innerText = 'Access Granted! WELL DONE!';
+          } else if (result.state === 'denied') {
+            status_message.current.innerText = 'Status PROMPT!';
+          }
+        }
+      });
   }
 
   const getPosition = () => {
