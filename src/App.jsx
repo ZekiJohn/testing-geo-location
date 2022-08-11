@@ -4,6 +4,7 @@ import { useState, useEffect, useRef  } from 'react'
 
 function App() {
   const [count, setCount] = useState(0);
+  const [position, setPosition] = useState("");
   const location = useRef();
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
   const getPosition = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
+        setPosition(position.coords.latitude + ',' + position.coords.longitude);
         location.current.innerText = position.coords.latitude + ', ' + position.coords.longitude + ' -- ' + position.coords.accuracy;
       },
       error => {
@@ -50,9 +52,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <h4 ref={location}>
-
-      </h4>
+      <h5>
+        <a ref={location} href={"http://maps.google.com/maps?q=" + position}></a>
+      </h5>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
