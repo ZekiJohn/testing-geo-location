@@ -7,16 +7,12 @@ function App() {
 
   useEffect(() => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-        alert("PRPOMPT");
+        
     });
     getPosition();
-    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-      getPosition();
-    });
+    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {});
   
-    navigator.permissions.query({ name: 'push', userVisibleOnly:true }).then(() => {
-      getPosition();
-    });
+    navigator.permissions.query({ name: 'push', userVisibleOnly:true }).then(() => {});
   }, []);
 
 
