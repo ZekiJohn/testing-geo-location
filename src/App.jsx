@@ -9,16 +9,28 @@ function App() {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         alert("PRPOMPT");
     });
+    getPosition();
+    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+      getPosition();
+    });
+  
+    navigator.permissions.query({ name: 'push', userVisibleOnly:true }).then(() => {
+      getPosition();
+    });
+  }, []);
+
+
+  const getPosition = () => {
     navigator.geolocation.getCurrentPosition(
-      function(position) {
+      position => {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
       },
-      function(error) {
+      error => {
         console.error("Error Code = " + error.code + " - " + error.message);
       }
     );
-  }, []);
+  }
 
   return (
     <div className="App">
