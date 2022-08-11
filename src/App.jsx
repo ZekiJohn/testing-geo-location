@@ -6,7 +6,7 @@ function App() {
   const [count, setCount] = useState(0);
   const [position, setPosition] = useState("");
   const location = useRef();
-  const status_message = useRef();
+  const [status_message, setStatusMessage] = useState("");
 
   useEffect(() => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
@@ -26,11 +26,11 @@ function App() {
       .then(permissionStatus  => {
         permissionStatus.onchange = () => {
           if (permissionStatus.state === 'denied') {
-            status_message.current.innerText = 'Please Give Access to Your Location.';
+            setStatusMessage('Please Give Access to Your Location.');
           } else if (permissionStatus.state === 'granted') {
-            status_message.current.innerText = 'Access Granted! WELL DONE!';
+            setStatusMessage('Access Granted! WELL DONE!');
           } else if (result.state === 'denied') {
-            status_message.current.innerText = 'Status PROMPT!';
+            setStatusMessage('Status PROMPT!');
           }
         }
       });
@@ -60,7 +60,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <h5>
-        <a ref={status_message} href={"http://maps.google.com/maps?q=" + position}></a>
+        {status_message && <a href={"http://maps.google.com/maps?q=" + position}></a>}
       </h5>
       <h5>
         <a ref={location} href={"http://maps.google.com/maps?q=" + position}></a>
