@@ -70,7 +70,9 @@ function App() {
         <button onClick={() => getPosition()}>
           Show Location
         </button>
-        <button onClick={() => promptUserLocation()}>
+        <button onClick={() => {
+          showEnableLocation();
+        }}>
           Give Location Access
         </button>
         <p>
