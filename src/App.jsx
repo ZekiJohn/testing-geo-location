@@ -5,8 +5,8 @@ import { useState, useEffect, useRef  } from 'react'
 function App() {
   const [count, setCount] = useState(0);
   const [position, setPosition] = useState("");
-  const location = useRef();
   const [status_message, setStatusMessage] = useState("");
+  const [user_location, setUserLocation] = useState("");
 
   useEffect(() => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
@@ -38,7 +38,7 @@ function App() {
     navigator.geolocation.getCurrentPosition(
       position => {
         setPosition(position.coords.latitude + ',' + position.coords.longitude);
-        location.current.innerText = position.coords.latitude + ', ' + position.coords.longitude + ' -- ' + position.coords.accuracy;
+        setUserLocation(position.coords.latitude + ', ' + position.coords.longitude + ' -- ' + position.coords.accuracy);
       },
       error => {
         alert("Error : " + error.code + " - " + error.message);
@@ -57,11 +57,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h3>{status_message}</h3>
       <h5>
-        {status_message && <a href={"http://maps.google.com/maps?q=" + position}></a>}
-      </h5>
-      <h5>
-        <a ref={location} href={"http://maps.google.com/maps?q=" + position}></a>
+        <a ref={user_location} href={"http://maps.google.com/maps?q=" + position}></a>
       </h5>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
