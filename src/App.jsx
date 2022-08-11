@@ -1,19 +1,29 @@
-import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { useState, useEffect, useRef  } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const location = useRef();
 
   useEffect(() => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-        
+      if (result.state === 'granted') {
+        getPosition();
+      } else if (result.state === 'prompt') {
+        showButtonToEnableLocation();
+      }
     });
-    getPosition();
-    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {});
+    // getPosition();
+    // navigator.permissions.query({ name: 'geolocation' }).then(function(result) {});
   
     navigator.permissions.query({ name: 'push', userVisibleOnly:true }).then(() => {});
   }, []);
+
+
+  const showButtonToEnableLocation = () => {
+    
+  }
 
 
   const getPosition = () => {
@@ -21,6 +31,7 @@ function App() {
       position => {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
+        location.current.innerText = position.coords.latitude + ', ' + position.coords.longitude + ' -- ' + position.coords.accuracy;
       },
       error => {
         console.error("Error Code = " + error.code + " - " + error.message);
@@ -39,9 +50,15 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h4 ref={location}>
+
+      </h4>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
+        </button>
+        <button onClick={() => getPosition()}>
+          Give Location Access
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
