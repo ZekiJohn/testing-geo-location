@@ -6,6 +6,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+        alert("PRPOMPT");
+    });
     navigator.geolocation.getCurrentPosition(
       function(position) {
         console.log("Latitude is :", position.coords.latitude);
