@@ -7,8 +7,8 @@ function App() {
   const [accuracy, setAccuracy] = useState("");
   const [status_message, setStatusMessage] = useState("");
   const [user_location, setUserLocation] = useState("");
-
-  useEffect(() => {
+  
+  const promptUserLocation = () => {
     navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
       if (result.state === 'granted') {
         getPosition();
@@ -16,8 +16,7 @@ function App() {
         showEnableLocation();
       }
     });
-  }, []);
-
+  }
 
   const showEnableLocation = () => {
     navigator.permissions.query({ name: 'push', userVisibleOnly:true })
@@ -35,6 +34,7 @@ function App() {
   }
 
   const getPosition = () => {
+    promptUserLocation();
     navigator.geolocation.getCurrentPosition(
       position => {
         setAccuracy(' -- ' + position.coords.accuracy);
@@ -68,6 +68,9 @@ function App() {
           count is {count}
         </button>
         <button onClick={() => getPosition()}>
+          Show Location
+        </button>
+        <button onClick={() => promptUserLocation()}>
           Give Location Access
         </button>
         <p>
